@@ -1,0 +1,51 @@
+Name: 		Mirror Magic
+Descripcion:    Optical Circuit Puzzle Game
+Date: 		2023-08-14
+Version:	3.3.0
+--------------------------------------------   
+
+
+DESCRIPTION
+-----------
+Open source arcade style game in the tradition of Deflektor (C64) or Mindbender (Amiga).
+
+This is a real-time puzzle game which set in an optical circuit. The player has to rotate mirrors to deflect a beam in order to destroy all the items of each level. 
+
+
+REQUIREMENTS
+------------
+This software requires libcx and the SDL2 libraries.
+Under ArcaOS you need to install:
+- "yum install SDL2 SDL2_image SDL2_mixer SDL2_net SDL2_ttf zlib"
+
+LICENSE
+-------
+GNU GPL V2
+
+COMPILE INSTRUCTIONS
+--------------------
+This version was modified to compile on ArcaOS with GCC 9 compiler. It also uses the Watcom Linker and Watcom Resource Compiler. 
+
+The requeriments for compile this version are:
+- yum install git gcc make libc-devel binutils watcom-wrc watcom-wlink-hll
+- yum install SDL2-devel SDL2_image-devel SDL2_mixer-devel SDL2_net-devel SDL2_ttf-devel perl zlib-devel pthread-devel libcx-devel
+
+1) Remember to have correct header files your path. For GCC the correct ones are the included on the "libc-devel", not the ones from the OS/2 Toolkit. Check your config.sys for "SET INCLUDE=C:\usr\include"
+
+2) Since I'm using the Watcom Resource Compiler and Watcom Linker (open source) instead of the classic rc.exe and ilink.exe, add to your config.sys...
+ SET EMXOMFLD_RC_TYPE=WRC
+ SET EMXOMFLD_RC=wrc.exe
+ SET EMXOMFLD_LINKER=wl.exe
+ SET EMXOMFLD_TYPE=WLINK
+
+3) Run "make" to compile or "make 2>&1 |tee make.out" to compile and get the log file. A compile.cmd file was provided to run the compile process.
+
+
+AUTHORS
+-------
+- Port: Martin Iturbide (2023)
+- ArtSoft
+
+LINKS
+------
+- https://www.artsoft.org/mirrormagic/

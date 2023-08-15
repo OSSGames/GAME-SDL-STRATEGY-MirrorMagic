@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Loading Rocks'n'Diamonds</title>
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+<style>
+body {
+    background: black;
+    text-align: center;
+    vertical-align: middle;
+}
+#loading {
+    color: white;
+    font-size: 120%;
+    font-family: sans-serif;
+}
+#canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+}
+</style>
+</head>
+<body>
+<canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+<div id="loading">
+<img src="loading.svg" width="200px" height="200px">
+<br>
+Loading Rocks'n'Diamonds ...
+</div>
+<script type='text/javascript'>
+      var Module = {
+        arguments: [],
+        preRun: [
+          function() {}
+        ],
+        postRun: [
+          function() { loading.style.display = 'none'; }
+        ],
+        print: (function() {
+          var element = document.getElementById('output');
+          if (element) element.value = ''; // clear browser cache
+          return function(text) {
+            if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+            console.log(text);
+          };
+        })(),
+        printErr: function(text) {
+          if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+          if(text.startsWith("[FATAL]")) console.error(text);
+          else console.warn(text);
+        },
+        setStatus: function(text) {/*if(text == '') { document.title = "Rocks'n'Diamonds (stopped)"; } */},
+        quit: (function()
+        {
+          document.title = "Rocks'n'Diamonds (exited)";
+        }),
+        canvas: (function() {
+          var canvas = document.getElementById('canvas');
+
+          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+          // application robust, you may want to override this behavior before shipping!
+          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+          canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+          return canvas;
+        })(),
+        totalDependencies: 0,
+        monitorRunDependencies: function(left) {
+          this.totalDependencies = Math.max(this.totalDependencies, left);
+        }
+      };
+      window.onerror = function(event) {
+        alert("An error occurred, see console.");
+        document.title = "Rocks'n'Diamonds (aborted)";
+      };
+</script>
+<script async type="text/javascript" src="rocksndiamonds.data.js"></script>
+<script async type="text/javascript" src="rocksndiamonds.js"></script>
+</body>
+</html>
