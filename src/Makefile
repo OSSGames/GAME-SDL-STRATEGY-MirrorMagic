@@ -82,7 +82,7 @@ endif
 
 ifeq ($(shell uname -s),OS/2)		# compiling on OS/2
 PROGNAME = ../$(PROGBASE).exe
-EXTRA_LDFLAGS = -Zomf -Zbin-files -Zmap -lcx -Zhigh-mem
+EXTRA_LDFLAGS = -Zomf -Zbin-files -Zmap -lcx -Zhigh-mem mirrormagic.def
 endif
 
 
